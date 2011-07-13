@@ -30,6 +30,8 @@ Tracker::Tracker(const QString &server, const QString &serverPath, const QString
 		}
 	}
 
+	connect(&m_session, SIGNAL(opened()), this, SLOT(nextUpload()));
+
 	QGeoPositionInfoSource *gps = QGeoPositionInfoSource::createDefaultSource(this);
 	if (!gps)
 		return;
@@ -69,7 +71,6 @@ void Tracker::upload()
 		return;
 	m_isUploading = true;
 	m_session.open();
-	nextUpload();
 }
 void Tracker::nextUpload()
 {
